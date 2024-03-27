@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <title>Debate Box</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+        integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+        integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.6/css/unicons.css" />
+    <link rel="stylesheet" href="mainpage.css"/>
+</head>
+<style>
+    a {
+        text-decoration: none;
+    }
+
+
+    #paper {
+        color: #FFF;
+        font-size: 20px;
+    }
+
+    #margin {
+        margin-left: 12px;
+        margin-bottom: 20px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+    }
+
+    .modal-dialog {
+        position: relative;
+        width: auto;
+        /* margin: .5rem; */
+        pointer-events: none;
+    }
+
+    @media (min-width: 576px) {
+        .modal-dialog {
+            max-width: unset;
+            margin: 1.75rem auto;
+        }
+    }
+
+    #text {
+        width: 100%;
+        overflow: hidden;
+        background-color: #FFF;
+        color: #222;
+
+        font-weight: normal;
+        font-size: 24px;
+        resize: none;
+        line-height: 40px;
+        padding-left: 100px;
+        padding-right: 100px;
+        padding-top: 45px;
+        padding-bottom: 34px;
+        background-image: url(https://static.tumblr.com/maopbtg/E9Bmgtoht/lines.png), url(https://static.tumblr.com/maopbtg/nBUmgtogx/paper.png);
+        background-repeat: repeat-y, repeat;
+        -webkit-border-radius: 12px;
+        border-radius: 12px;
+        -webkit-box-shadow: 0px 2px 14px #000;
+        box-shadow: 0px 2px 14px #000;
+        border-top: 1px solid #FFF;
+        border-bottom: 1px solid #FFF;
+    }
+
+    #button {
+        cursor: pointer;
+        margin-top: 20px;
+        float: right;
+        height: 40px;
+        padding-left: 24px;
+        overflow: hidden;
+
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-size: 20px;
+        color: #FFF;
+        text-shadow: 0px -1px 0px #000000;
+        -webkit-border-radius: 8px;
+        border-radius: 8px;
+        border-top: 1px solid #FFF;
+        -webkit-box-shadow: 0px 2px 14px #000;
+        box-shadow: 0px 2px 14px #000;
+        background-color: #62add6;
+        background-image: url(https://static.tumblr.com/maopbtg/ZHLmgtok7/button.png);
+        background-repeat: repeat-x;
+    }
+
+    #button:active {
+        zoom: 1;
+        filter: alpha(opacity=80);
+        opacity: 0.8;
+    }
+
+    #button:focus {
+        zoom: 1;
+        filter: alpha(opacity=80);
+        opacity: 0.8;
+    }
+
+    #wrapper {
+
+        margin-top: 24px;
+        margin-bottom: 100px;
+    }
+
+    *::-webkit-scrollbar {
+        width: 0px;
+    }
+    a{
+        text-decoration: none;
+    }
+
+    .custom-popup {
+        position: fixed;
+        bottom: 0%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        color: #FFF;
+        background-color: #150303;
+        border: 1px solid #ccc;
+        border-radius: 35px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        z-index: 9999;
+        display: none;
+
+    }
+</style>
+
+<body>
+    <div class="custom-popup" id="popup">
+
+        <!-- Popup content will be inserted here -->
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="overflow: hidden; ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Let's give a new way of thinking</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="wrapper">
+
+                        <form id="paper" method="get" action="">
+
+
+                            <textarea placeholder="Change the World with a thought...." id="text" name="text" rows="5"
+                                style="overflow: scroll; word-wrap: break-word; "></textarea>
+                            <br>
+
+
+                        </form>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Not Now</button>
+                    <button type="button" class="btn btn-primary">Go</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav>
+        <div class="container">
+            <h2 class="logo">DebateBox</h2>
+            <div class="search-bar">
+                <i class="uil uil-search"></i>
+                <input type="search" placeholder="Search for creators, inspirations and projects" />
+            </div>
+            <div class="create">
+                <label class="btn btn-primary" for="create-post" type="button" class="btn btn-primary button-90"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal">Create</label>
+                <div class="profile-pic">
+                    <a href="userDashboard.html"><img src="images/profile-8.jpg" alt="pic 1" /></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <div class="left">
+
+                <div class="sidebar">
+                    <a class="menu-item active">
+                        <span><i class="uil uil-home"></i></span>
+                        <h3>Home</h3>
+                    </a>
+                    <a class="menu-item ">
+                        <span><i class="uil uil-compass"></i></span>
+                        <h3>Explore</h3>
+                    </a>
+                    <a class="menu-item" id="notifications">
+                        <span><i class="uil uil-bell"><small class="notification-count">9+</small></i></span>
+                        <h3>Notifications</h3>
+                        <div class="notifications-popup">
+                            <div>
+                                <div class="profile-pic">
+                                    <img src="./images/profile-10.jpg">
+                                </div>
+                                <div class="notification-body">
+                                    <b>Abigail Willey</b> accepted your friend request
+                                    <small class="text-muted">2 DAYS AGO</small>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="profile-pic">
+                                    <img src="./images/profile-11.jpg">
+                                </div>
+                                <div class="notification-body">
+                                    <b>Varun Nair</b> commented on your post
+                                    <small class="text-muted">1 HOUR AGO</small>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="profile-pic">
+                                    <img src="./images/profile-12.jpg">
+                                </div>
+                                <div class="notification-body">
+                                    <b>Marry Opmong</b> and 210 other liked your post
+                                    <small class="text-muted">4 MINUTES AGO</small>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="profile-pic">
+                                    <img src="./images/profile-13.jpg">
+                                </div>
+                                <div class="notification-body">
+                                    <b>Wilson Fisk</b> started following you
+                                    <small class="text-muted"> 11 HOURS AGO</small>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="menu-item" id="messages-notifications">
+                        <i class="uil uil-envelope"><small class="notification-count">6</small></i></span>
+                        <h3>Messages</h3>
+                    </a>
+                    <a class="menu-item ">
+                        <span><i class="uil uil-bookmark"></i></span>
+                        <h3>Bookmarks</h3>
+                    </a>
+                    <a class="menu-item ">
+                        <span><i class="uil uil-analytics"></i></span>
+                        <h3>Analytics</h3>
+                    </a>
+                    <a class="menu-item ">
+                        <span><i class="uil uil-palette"></i></span>
+                        <h3>Theme</h3>
+                    </a>
+                    <a class="menu-item ">
+                        <span><i class="uil uil-setting"></i></span>
+                        <h3>Settings</h3>
+                    </a>
+
+                   
+                </div>
+            </div>
+
+
+
+            <div class="middle">
+
+
+                <form class="create-post">
+                    <div class="profile-pic">
+                        <img src="images/profile-8.jpg" alt="">
+                    </div>
+                    <input type="text" placeholder="What's on your mind Chirag?" id="create-post">
+                    <button type="button" class="btn btn-primary button-90" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                        Post
+                    </button>
+                </form>
+
+                <div class="feeds">
+                    <div class="feed">
+
+                        <div class="user">
+                            <div class="profile-pic">
+                                <img src="images/profile-14.jpg" alt="">
+                            </div>
+                            <div class="info">
+                                <h3>Lana Rose</h3>
+                                <small>Dubai, 15 MINUTES AGO</small>
+                            </div>
+
+                        </div>
+
+                        <div class="photo" style="padding: 8px;">
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam aspernatur delectus eos
+                                accusantium, nobis, optio beatae, harum illo labore qui ipsum facilis minus saepe
+                                explicabo.
+                            </p>
+                        </div>
+
+                        <div class="action-button">
+                            <div class="interaction-button">
+                                <a href="#" onclick="showPopup('You liked the post!')">
+                                    <span><i class="uil uil-thumbs-up"></i></span>
+                                </a>
+                                <!-- Bookmark icon -->
+                                <a href="#" onclick="showPopup('You saved the post!')">
+                                    <span><i class="uil uil-bookmark"></i></span>
+                                </a>
+                            </div>
+                            <div class="bookmark">
+                                <span><a href="videocall.html"><button class="btn btn-primary button-90">
+                                        join
+                                    </button></span></a>
+                            </div>
+                        </div>
+
+                        <div class="liked-by">
+                            <span><img src="images/profile-15.jpg"></span>
+                            <span><img src="images/profile-16.jpg"></span>
+                            <span><img src="images/profile-17.jpg"></span>
+                            ,<p>Liked by <b>Enrest Achiever</b>snd <b>220 others</b></p>
+                        </div>
+
+
+
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="right">
+                <div class="messages">
+                    <div class="heading">
+                        <h4>Messages</h4>
+                        <span><i class="uil uil-edit"></i></span>
+                    </div>
+
+                    <div class="search-bar">
+                        <span><i class="uil uil-search"></i></span>
+                        <input type="search" placeholder="Search Messages" id="message-search">
+                    </div>
+
+                    <div class="category">
+                        <h6 class="active">Primary</h6>
+                        <h6>General</h6>
+                        <h6 class="message-requests">Requests(7)</h6>
+                    </div>
+                    <div class="message">
+                        <div class="profile-pic">
+                            <img src="images/profile-17.jpg">
+                            <div class="active"></div>
+                        </div>
+                        <div class="message-body">
+                            <h5>Kareena Joshua</h5>
+                            <p class="text-muted">Just woke up bruh..</p>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <div class="profile-pic">
+                            <img src="images/profile-18.jpg">
+                            <div class="active"></div>
+                        </div>
+                        <div class="message-body">
+                            <h5>Dan Smith</h5>
+                            <p class="text-bold">2 New Messages</p>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <div class="profile-pic">
+                            <img src="images/profile-15.jpg">
+                        </div>
+                        <div class="message-body">
+                            <h5>Chris Brown</h5>
+                            <p class="text-muted">Lol u right</p>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <div class="profile-pic">
+                            <img src="images/profile-14.jpg">
+                        </div>
+                        <div class="message-body">
+                            <h5>Lana Rose</h5>
+                            <p class="text-bold">Birthday tomorrow!!</p>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <div class="profile-pic">
+                            <img src="images/profile-11.jpg">
+                        </div>
+                        <div class="message-body">
+                            <h5>Varun Nair</h5>
+                            <p class="text-muted">Ssup?</p>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <div class="profile-pic">
+                            <img src="images/profile-1.jpg">
+                            <div class="active"></div>
+                        </div>
+                        <div class="message-body">
+                            <h5>Jahnvi Doifode</h5>
+                            <p class="text-bold">3 New Messages</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="friend-requests">
+                    <h4>Requests</h4>
+                    <div class="request">
+                        <div class="info">
+                            <div class="profile-pic">
+                                <img src="images/profile-13.jpg">
+                            </div>
+                            <div>
+                                <h5>Wilson Fisk</h5>
+                                <p class="text-muted">8 mutual friends</p>
+
+                            </div>
+                        </div>
+                        <div class="action">
+                            <button class="btn btn-primary">Accept</button>
+                            <button class="btn">Decline</button>
+                        </div>
+                    </div>
+                    <div class="request">
+                        <div class="info">
+                            <div class="profile-pic">
+                                <img src="images/profile-20.jpg">
+                            </div>
+                            <div>
+                                <h5>Srishti Tirkey</h5>
+                                <p class="text-muted">2 mutual friends</p>
+
+                            </div>
+                        </div>
+                        <div class="action">
+                            <button class="btn btn-primary">Accept</button>
+                            <button class="btn">Decline</button>
+                        </div>
+                    </div>
+                    <div class="request">
+                        <div class="info">
+                            <div class="profile-pic">
+                                <img src="images/profile-5.jpg">
+                            </div>
+                            <div>
+                                <h5>Christ Kahea</h5>
+                                <p class="text-muted">1 mutual friend</p>
+
+                            </div>
+                        </div>
+                        <div class="action">
+                            <button class="btn btn-primary">Accept</button>
+                            <button class="btn">Decline</button>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </main>
+
+    <script src="homepage.js"></script>
+    <script>
+
+        function showPopup(message) {
+            var popup = document.getElementById("popup");
+
+            popup.innerHTML = '<p>' + message + '</p>';
+
+            popup.style.display = "block";
+
+            setTimeout(function () {
+                popup.style.display = "none";
+            }, 2000);
+        }
+    </script>
+</body>
+
+</html>
